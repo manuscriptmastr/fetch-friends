@@ -2,10 +2,41 @@
   "name": "fetch-friends",
   "version": "1.0.0",
   "description": "Common utils for the Fetch API",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "homepage": "https://github.com/manuscriptmastr/fetch-friends#readme",
+  "bugs": {
+    "url": "https://github.com/manuscriptmastr/fetch-friends/issues"
   },
-  "author": "",
-  "license": "ISC"
+  "main": "./dist.js",
+  "type": "module",
+  "module": "./index.js",
+  "exports": {
+    "require": "./dist.js",
+    "import": "./index.js",
+    "default": "./index.js"
+  },
+  "scripts": {
+    "test": "ava --verbose --watch"
+  },
+  "author": "Joshua Martin",
+  "license": "ISC",
+  "keywords": [
+    "fetch",
+    "functional",
+    "node-fetch",
+    "timeout",
+    "composable",
+    "decorate",
+    "utils",
+    "native"
+  ],
+  "devDependencies": {
+    "ava": "^3.9.0",
+    "nock": "^12.0.3",
+    "node-fetch": "^2.6.0"
+  },
+  "dependencies": {
+    "abort-controller": "^3.0.0",
+    "esm": "^3.2.25",
+    "ramda": "^0.27.0"
+  }
 }
