@@ -1,6 +1,8 @@
 # fetch-friends
 
-The `fetch` API is ubiquitous to the web. `fetch-friends` is a minimal, auto-curried utility library to decorate `fetch` with behaviors you might otherwise switch to another HTTP library for.
+No excuses. The `fetch` API is ubiquitous to the web.
+
+`fetch-friends` is a minimal, auto-curried utility library to decorate `fetch` with behaviors you might otherwise switch to another HTTP library for, confusing other developers in the process.
 
 No need to replace `fetch` with a library just because you need timeout:
 ```js
@@ -128,17 +130,6 @@ headers(async () => ({ `Authorization: Bearer ${await getToken()}` }), fetch)('1
 // fetch('123.com', { headers: { 'Authorization': 'Bearer 123.secret.456' } })
 ```
 
-### `options(objectOrFn, fetch)(url, opts?)`
-
-`options` accepts an object, function, or async function:
-```js
-options({ method: 'GET' }, fetch)('123.com', {});
-options({ method: 'GET' })(fetch)('123.com', {});
-// fetch('123.com', { method: 'GET' })
-options(() => ({ signal: abort(5000) }), fetch)('123.com', {});
-// fetch('123.com', { signal: AbortSignal })
-```
-
 ### `option(key, valueOrFn, fetch)(url, opts?)`
 
 `option` accepts a key and a value/function/async function:
@@ -147,6 +138,17 @@ option('signal', () => abort(5000), fetch)('123.com', {});
 option('signal', () => abort(5000))(fetch)('123.com', {});
 option('signal')(() => abort(5000), fetch)('123.com', {});
 option('signal')(() => abort(5000))(fetch)('123.com', {});
+// fetch('123.com', { signal: AbortSignal })
+```
+
+### `options(objectOrFn, fetch)(url, opts?)`
+
+`options` accepts an object, function, or async function:
+```js
+options({ method: 'GET' }, fetch)('123.com', {});
+options({ method: 'GET' })(fetch)('123.com', {});
+// fetch('123.com', { method: 'GET' })
+options(() => ({ signal: abort(5000) }), fetch)('123.com', {});
 // fetch('123.com', { signal: AbortSignal })
 ```
 
