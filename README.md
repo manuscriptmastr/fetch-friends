@@ -1,6 +1,6 @@
 # fetch-friends
 
-No excuses. The `fetch` API is ubiquitous to the web.
+The `fetch` API is ubiquitous to the web.
 
 `fetch-friends` is a minimal, auto-curried utility library to decorate `fetch` with behaviors you might otherwise switch to another HTTP library for, confusing other developers in the process.
 
