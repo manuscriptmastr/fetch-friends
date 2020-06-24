@@ -6,6 +6,7 @@ import memoizeWith from 'ramda/src/memoizeWith.js';
 import pipe from 'ramda/src/pipe.js';
 import tap from 'ramda/src/tap.js';
 import decorate, {
+  abort,
   basicAuthHeader,
   bearerAuthHeader,
   body,
@@ -22,10 +23,34 @@ const MOCK_API = 'http://testing123.test';
 
 test.afterEach(nock.cleanAll);
 
+test.serial('abort(ms) returns AbortSignal', async t => {
+  const scope = nock(MOCK_API)
+    .get('/')
+    .reply(200, { hello: 'world' });
+  t.deepEqual(
+    await fetch(MOCK_API, { signal: abort(250) }).then(res => res.json()),
+    { hello: 'world' }
+  );
+  scope.done();
+});
+
+test.serial('abort(ms) returns AbortSignal that expires after ms', async t => {
+  const scope = nock(MOCK_API)
+    .get('/')
+    .delayConnection(7000)
+    .reply(200, { hello: 'world' });
+
+  await t.throwsAsync(
+    () => fetch(MOCK_API, { signal: abort(150) }).then(res => res.json()),
+    { name: 'AbortError', message: `The user aborted a request.` }
+  );
+  scope.done();
+});
+
 test('basicAuthHeader(username, password) returns an object with basic auth header', t => {
   t.deepEqual(
-    basicAuthHeader('daniel', 'w1ll0wtree'),
-    { 'Authorization': 'Basic ZGFuaWVsOncxbGwwd3RyZWU=' }
+    basicAuthHeader('joshua', 'm@rt1n'),
+    { 'Authorization': 'Basic am9zaHVhOm1AcnQxbg==' }
   );
 });
 
@@ -53,7 +78,7 @@ test('body(fetch) adds body to opts', async t => {
   }]);
 });
 
-test('decorate(fn, decorators) passes in original arguments to fn', async t => {
+test('decorate(fetch, decorators) passes in original arguments to fetch', async t => {
   const fakeFetch = async (...args) => args;
   t.deepEqual(
     await decorate(fakeFetch, [fetch => (...args) => fetch(...args)])('123.com'),
@@ -65,7 +90,7 @@ test('decorate(fn, decorators) passes in original arguments to fn', async t => {
   );
 });
 
-test('decorate(fn, decorators) can manipulate arguments before passing to fn', async t => {
+test('decorate(fetch, decorators) can manipulate arguments before passing to fetch', async t => {
   const fakeFetch = async (...args) => args;
   t.deepEqual(
     await decorate(fakeFetch, [
@@ -75,7 +100,7 @@ test('decorate(fn, decorators) can manipulate arguments before passing to fn', a
   );
 });
 
-test('decorate(fn, decorators) performs decorators in left-to-right, top-to-bottom fashion', async t => {
+test('decorate(fetch, decorators) performs decorators in left-to-right, top-to-bottom fashion', async t => {
   const fakeFetch = async (...args) => args;
   const post = decorate(fakeFetch, [
     fetch => (body, url, opts = {}) => fetch(url, { ...opts, body: JSON.stringify(body) }),
@@ -87,7 +112,7 @@ test('decorate(fn, decorators) performs decorators in left-to-right, top-to-bott
   );
 });
 
-test('decorate(fn, decorators) partially invokes decorators with fn before args are passed in', async t => {
+test('decorate(fetch, decorators) partially invokes decorators with fetch before args are passed in', async t => {
   let timesCalled = 0;
   const fakeFetch = async (...args) => args;
   const fakeFetchWithIncrement = pipe((...args) => args, tap(() => { timesCalled += 1 }), apply(fakeFetch));
