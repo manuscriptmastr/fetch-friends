@@ -23,6 +23,7 @@
     "fetch",
     "functional",
     "node-fetch",
+    "abort",
     "timeout",
     "composable",
     "decorate",

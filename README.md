@@ -82,9 +82,22 @@ Fetch decorators are higher order functions that add behavior on top of your `fe
 
 Decorators that accept a function are lazily evaluated. This comes in handy for side effects like setting timeouts and getting an API token when `fetch` is called.
 
-To apply multiple fetch decorators to `fetch`, use the default export `decorate(fetch, [...decorators])`. Decorators are applied in left-to-right, top-to-bottom fashion.
+To apply multiple fetch decorators to `fetch`, use the default export `decorate`.
 
 Like native `fetch`, the second argument `opts` is optional. Options passed in earlier always take precedence when a duplicate is found.
+
+### `decorate(fetch, decorators)`
+
+`decorate` applies multiple `fetch` decorators in left-to-right, top-to-bottom fashion:
+```js
+import fetch from 'node-fetch';
+import decorate, { basicAuthHeader, headers, timeout } from 'fetch-friends';
+
+export default decorate(fetch, [
+  headers(basicAuthHeaders('joshua', 'm@rt1n')),
+  timeout(5000)
+]);
+```
 
 ### `body(fetch)(json, url, opts?)`
 
@@ -150,7 +163,7 @@ timeout(5000)(fetch)('123.com', {});
 
 Just some teeny helper functions.
 
-## abort(millis)
+### `abort(millis)`
 
 `abort` sets a timeout and returns an [`AbortSignal`](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal):
 
