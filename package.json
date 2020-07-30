@@ -1,21 +1,22 @@
 {
   "name": "fetch-friends",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Common utils for the Fetch API",
   "homepage": "https://github.com/manuscriptmastr/fetch-friends#readme",
   "bugs": {
     "url": "https://github.com/manuscriptmastr/fetch-friends/issues"
   },
-  "main": "./dist.js",
   "type": "module",
-  "module": "./index.js",
+  "main": "./cjs/index.cjs",
+  "module": "./src/index.js",
   "exports": {
-    "require": "./dist.js",
-    "import": "./index.js",
-    "default": "./index.js"
+    "require": "./cjs/index.cjs",
+    "import": "./src/index.js",
+    "default": "./src/index.js"
   },
   "scripts": {
-    "test": "ava --verbose --watch"
+    "test": "ava --verbose --watch",
+    "build": "rollup --config"
   },
   "author": "Joshua Martin",
   "license": "ISC",
@@ -25,19 +26,27 @@
     "node-fetch",
     "abort",
     "timeout",
+    "headers",
+    "method",
+    "options",
+    "json",
+    "body",
+    "response",
+    "request",
+    "API",
     "composable",
     "decorate",
-    "utils",
-    "native"
+    "utils"
   ],
   "devDependencies": {
+    "@rollup/plugin-commonjs": "^14.0.0",
+    "@rollup/plugin-node-resolve": "^8.4.0",
     "ava": "^3.9.0",
-    "nock": "^12.0.3",
+    "nock": "^13.0.3",
     "node-fetch": "^2.6.0"
   },
   "dependencies": {
     "abort-controller": "^3.0.0",
-    "esm": "^3.2.25",
     "ramda": "^0.27.0"
   }
 }

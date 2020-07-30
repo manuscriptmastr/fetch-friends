@@ -12,7 +12,6 @@ export { andThen, compose, pipe };
 const raise = err => { throw err };
 
 // fetch helpers
-  
 export const abort = (ms) => {
   const controller = new AbortController();
   setTimeout(() => controller.abort(), ms);
@@ -38,4 +37,6 @@ export const body = fetch => (json, url, opts = {}) => options({
 }, fetch)(url, opts);
 
 // applies multiple decorators to fetch
-export default curry((fetch, decorators) => compose(...decorators)(fetch));
+export const decorate = curry((fetch, decorators) => compose(...decorators)(fetch));
+
+export default decorate;

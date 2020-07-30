@@ -1,8 +1,8 @@
 # fetch-friends
 
-The `fetch` API is ubiquitous to the web.
+Common utils for the Fetch API.
 
-`fetch-friends` is a minimal, auto-curried utility library to decorate `fetch` with behaviors you might otherwise switch to another HTTP library for, confusing other developers in the process.
+`fetch` is ubiquitous to the web. `fetch-friends` is a minimal, auto-curried utility library to decorate `fetch` with behaviors you might otherwise switch to another HTTP library for, confusing other developers in the process.
 
 No need to replace `fetch` with a library just because you need timeout:
 ```js
@@ -224,3 +224,8 @@ Retries `fetch` on:
 ### [`semaphorejs`](https://github.com/nybblr/semaphorejs)
 
 Decorates `fetch` with [semaphore behavior](https://en.wikipedia.org/wiki/Semaphore_(programming))
+
+## CommonJS
+```js
+const { decorate, json, rejectIfNotOkay, headers } = require('fetch-friends');
+```
