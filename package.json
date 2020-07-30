@@ -1,6 +1,6 @@
 {
   "name": "fetch-friends",
-  "version": "1.0.1-beta.0",
+  "version": "1.0.1",
   "description": "Common utils for the Fetch API",
   "homepage": "https://github.com/manuscriptmastr/fetch-friends#readme",
   "bugs": {
