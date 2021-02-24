@@ -1,6 +1,6 @@
 {
   "name": "fetch-friends",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Common utils for the Fetch API",
   "homepage": "https://github.com/manuscriptmastr/fetch-friends#readme",
   "bugs": {
@@ -15,7 +15,7 @@
     "default": "./src/index.js"
   },
   "scripts": {
-    "test": "ava --verbose --watch",
+    "test": "ava --verbose",
     "build": "rollup --config"
   },
   "author": "Joshua Martin",
@@ -39,10 +39,10 @@
     "utils"
   ],
   "devDependencies": {
-    "@rollup/plugin-commonjs": "^16.0.0",
-    "@rollup/plugin-node-resolve": "^10.0.0",
-    "ava": "^3.13.0",
-    "nock": "^13.0.5",
+    "@rollup/plugin-commonjs": "^17.1.0",
+    "@rollup/plugin-node-resolve": "^11.2.0",
+    "ava": "^3.15.0",
+    "nock": "^13.0.7",
     "node-fetch": "^2.6.1"
   },
   "dependencies": {
